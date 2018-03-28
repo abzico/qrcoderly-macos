@@ -3,6 +3,7 @@
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14092"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+        <capability name="system font weights other than Regular or Bold" minToolsVersion="7.0"/>
     </dependencies>
     <scenes>
         <!--Application-->
@@ -680,18 +681,82 @@
             </objects>
             <point key="canvasLocation" x="62" y="408"/>
         </scene>
+        <!--Help View Controller-->
+        <scene sceneID="ALI-Ok-zVA">
+            <objects>
+                <viewController storyboardIdentifier="HelpViewController" id="2kX-4u-q7d" customClass="HelpViewController" customModule="qrcoderly" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" id="Nnx-Zn-DYy">
+                        <rect key="frame" x="0.0" y="0.0" width="250" height="120"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <subviews>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="i9Z-iD-mZ0">
+                                <rect key="frame" x="10" y="91" width="76" height="17"/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Short keys" id="9Mh-gD-h2S">
+                                    <font key="font" metaFont="systemSemibold" size="13"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="F5G-t2-iLJ">
+                                <rect key="frame" x="12" y="66" width="14" height="17"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="- " id="jiD-0p-Giz">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="i9Z-iD-mZ0" firstAttribute="leading" secondItem="Nnx-Zn-DYy" secondAttribute="leading" constant="12" id="Jcs-Gc-6j5"/>
+                            <constraint firstItem="i9Z-iD-mZ0" firstAttribute="top" secondItem="Nnx-Zn-DYy" secondAttribute="top" constant="12" id="TXN-jW-i8k"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <customObject id="g2r-SD-W3g" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-31" y="1071"/>
+        </scene>
         <!--ScanQR Code View Controller-->
         <scene sceneID="hIz-AP-VOD">
             <objects>
                 <viewController storyboardIdentifier="ScanQRCodeViewController" id="XfG-lQ-9wD" customClass="ScanQRCodeViewController" customModule="qrcoderly" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" wantsLayer="YES" id="m2S-Jp-Qdl">
-                        <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
+                        <rect key="frame" x="0.0" y="0.0" width="430" height="430"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <subviews>
+                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="B7F-ii-Mtu" customClass="CustomView" customModule="qrcoderly" customModuleProvider="target">
+                                <rect key="frame" x="12" y="30" width="406" height="388"/>
+                            </customView>
+                            <button horizontalHuggingPriority="750" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="SZB-Jm-22l">
+                                <rect key="frame" x="398" y="3" width="22" height="22"/>
+                                <buttonCell key="cell" type="help" bezelStyle="helpButton" alignment="center" controlSize="small" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="HPe-fN-0NB">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="smallSystem"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="onTouchHelpButton:" target="XfG-lQ-9wD" id="VIw-ql-nG0"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="B7F-ii-Mtu" secondAttribute="trailing" constant="12" id="0rH-0v-Dz8"/>
+                            <constraint firstAttribute="bottom" secondItem="SZB-Jm-22l" secondAttribute="bottom" constant="6" id="2C5-eQ-JCC"/>
+                            <constraint firstAttribute="trailing" secondItem="SZB-Jm-22l" secondAttribute="trailing" constant="12" id="OnE-I7-PL1"/>
+                            <constraint firstItem="B7F-ii-Mtu" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="12" id="dke-BA-ab5"/>
+                            <constraint firstAttribute="bottom" secondItem="B7F-ii-Mtu" secondAttribute="bottom" constant="30" id="hau-OG-f0c"/>
+                            <constraint firstItem="B7F-ii-Mtu" firstAttribute="centerX" secondItem="m2S-Jp-Qdl" secondAttribute="centerX" id="prD-xE-Z6q"/>
+                            <constraint firstItem="B7F-ii-Mtu" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="12" id="zuo-is-WnY"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="customView" destination="B7F-ii-Mtu" id="jAW-Db-n66"/>
+                        <outlet property="helpButton" destination="SZB-Jm-22l" id="30b-J4-MIy"/>
+                    </connections>
                 </viewController>
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="75" y="655"/>
+            <point key="canvasLocation" x="61" y="721"/>
         </scene>
     </scenes>
 </document>

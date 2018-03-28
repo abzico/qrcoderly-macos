@@ -19,7 +19,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         
         if let button = statusItem.button {
             button.image = NSImage(named: NSImage.Name("statusbaricon"))
-            button.action = #selector(togglePopover(_:))
+            button.action = #selector(AppDelegate.togglePopover(_:))
         }
         popover.contentViewController = ScanQRCodeViewController.freshController()
         
@@ -32,7 +32,25 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     @objc func togglePopover(_ sender: Any?) {
         if popover.isShown {
-            closePopover(sender: sender)
+            // send notification to allow others to handle something first
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: SharedConstants.Notification.buttonItemClickPopoverToClose.rawValue), object: nil)
+            
+            // at least wait for very short time to allow other VC to set flag
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.04) {
+                if SharedVolatile.isHelpPopoverShown {
+                    // wait long time to close app popover
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: {
+                        self.closePopover(sender: sender)
+                        
+                        // reset the flag
+                        SharedVolatile.isHelpPopoverShown = false
+                    })
+                }
+                else {
+                    // immediately close popover
+                    self.closePopover(sender: sender)
+                }
+            }
         }
         else {
             showPopover(sender: sender)

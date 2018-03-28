@@ -12,6 +12,10 @@
 		1E88132C206B1B61006DFB84 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1E88132B206B1B61006DFB84 /* Assets.xcassets */; };
 		1E88132F206B1B61006DFB84 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1E88132D206B1B61006DFB84 /* Main.storyboard */; };
 		1E881338206B4306006DFB84 /* ScanQRCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E881337206B4306006DFB84 /* ScanQRCodeViewController.swift */; };
+		1E88133A206C112B006DFB84 /* CustomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E881339206C112B006DFB84 /* CustomView.swift */; };
+		1E88133C206C2100006DFB84 /* HelpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E88133B206C2100006DFB84 /* HelpViewController.swift */; };
+		1E88133E206C2577006DFB84 /* SharedConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E88133D206C2577006DFB84 /* SharedConstants.swift */; };
+		1E881340206C2BD7006DFB84 /* SharedVolatile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E88133F206C2BD7006DFB84 /* SharedVolatile.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -23,6 +27,10 @@
 		1E881330206B1B61006DFB84 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1E881331206B1B61006DFB84 /* qrcoderly.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = qrcoderly.entitlements; sourceTree = "<group>"; };
 		1E881337206B4306006DFB84 /* ScanQRCodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanQRCodeViewController.swift; sourceTree = "<group>"; };
+		1E881339206C112B006DFB84 /* CustomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomView.swift; sourceTree = "<group>"; };
+		1E88133B206C2100006DFB84 /* HelpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpViewController.swift; sourceTree = "<group>"; };
+		1E88133D206C2577006DFB84 /* SharedConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedConstants.swift; sourceTree = "<group>"; };
+		1E88133F206C2BD7006DFB84 /* SharedVolatile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedVolatile.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,6 +70,10 @@
 				1E881337206B4306006DFB84 /* ScanQRCodeViewController.swift */,
 				1E881330206B1B61006DFB84 /* Info.plist */,
 				1E881331206B1B61006DFB84 /* qrcoderly.entitlements */,
+				1E881339206C112B006DFB84 /* CustomView.swift */,
+				1E88133B206C2100006DFB84 /* HelpViewController.swift */,
+				1E88133D206C2577006DFB84 /* SharedConstants.swift */,
+				1E88133F206C2BD7006DFB84 /* SharedVolatile.swift */,
 			);
 			path = qrcoderly;
 			sourceTree = "<group>";
@@ -136,9 +148,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1E881340206C2BD7006DFB84 /* SharedVolatile.swift in Sources */,
 				1E88132A206B1B60006DFB84 /* ViewController.swift in Sources */,
+				1E88133A206C112B006DFB84 /* CustomView.swift in Sources */,
 				1E881328206B1B60006DFB84 /* AppDelegate.swift in Sources */,
 				1E881338206B4306006DFB84 /* ScanQRCodeViewController.swift in Sources */,
+				1E88133E206C2577006DFB84 /* SharedConstants.swift in Sources */,
+				1E88133C206C2100006DFB84 /* HelpViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
