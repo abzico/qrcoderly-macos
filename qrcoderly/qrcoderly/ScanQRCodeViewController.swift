@@ -7,6 +7,7 @@
 //
 
 import Cocoa
+import AVFoundation
 
 class ScanQRCodeViewController: NSViewController {
 
@@ -15,16 +16,30 @@ class ScanQRCodeViewController: NSViewController {
     
     let helpPopover = NSPopover()
     
+    // MARK: AVFoundataion for iSight camera
+    var session: AVCaptureSession!
+    var videoCompression: AVCaptureConnection?
+    var stillImageOutput: AVCaptureStillImageOutput?
+    var previewLayer: AVCaptureVideoPreviewLayer?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do view setup here.
         
+        // we will work with layer, thus request to have it here
         self.view.wantsLayer = true
+        
         // create and set help popover
         helpPopover.contentViewController = HelpViewController.freshController()
+        
+        // set up avfoundation to capture video and show preview on child view layer
+        initCaptureSession()
+        setupPreviewLayer()
     }
     
     override func viewWillAppear() {
+        super.viewWillAppear()
+        
         // listen to events
         NotificationCenter.default.addObserver(self, selector: #selector(ScanQRCodeViewController.handleAppPopoverToClose(notification:)), name: NSNotification.Name(rawValue: SharedConstants.Notification.buttonItemClickPopoverToClose.rawValue), object: nil)
     }
@@ -34,6 +49,16 @@ class ScanQRCodeViewController: NSViewController {
     
         // remove events
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: SharedConstants.Notification.buttonItemClickPopoverToClose.rawValue), object: nil)
+        
+        // stop monitoring to not use cpu usage too much while its VC is not active
+        stopVideoPreview()
+    }
+    
+    override func viewDidAppear() {
+        super.viewDidAppear()
+        
+        // start monitoring
+        startVideoPreview()
     }
     
     @objc func handleAppPopoverToClose(notification: Notification) {
@@ -67,6 +92,57 @@ class ScanQRCodeViewController: NSViewController {
     
     func closeHelpPopover(sender: Any?) {
         helpPopover.performClose(sender)
+    }
+}
+
+// MARK: AVFoundatioan implementation
+extension ScanQRCodeViewController {
+    func initCaptureSession() {
+        session = AVCaptureSession()
+        
+        if session.canSetSessionPreset(.high) {
+            session.canSetSessionPreset(.high)
+        }
+        
+        let captureDevice = AVCaptureDevice.default(for: .video)
+        
+        if let captureDevice = captureDevice {
+            do {
+                let deviceInput = try AVCaptureDeviceInput(device: captureDevice)
+            
+                if session.canAddInput(deviceInput) {
+                    session.addInput(deviceInput)
+                }
+            } catch {
+                print("error creating deviceInput")
+            }
+        }
+        else {
+            print("error check captureDevice whether it's created normally")
+        }
+    }
+    
+    func setupPreviewLayer() {
+        if session != nil {
+            previewLayer = AVCaptureVideoPreviewLayer(session: session)
+            previewLayer!.videoGravity = AVLayerVideoGravity.resizeAspectFill
+            previewLayer!.frame = customView.frame
+            
+            // layer must be there as result of setWantsLayer
+            view.layer!.addSublayer(previewLayer!)
+        }
+    }
+    
+    func startVideoPreview() {
+        if !session.isRunning {
+            session.startRunning()
+        }
+    }
+    
+    func stopVideoPreview() {
+        if session.isRunning {
+            session.stopRunning()
+        }
     }
 }
 
