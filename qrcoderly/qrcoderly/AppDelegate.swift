@@ -78,7 +78,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
     
     @objc func scanQRCode(_ sender: Any?) {
-        print("scanQRCode")
+        
     }
 }
 

@@ -79,8 +79,6 @@ class ScanQRCodeViewController: NSViewController, AVCaptureVideoDataOutputSample
     }
     
     @IBAction func onTouchHelpButton(_ sender: Any) {
-        print("touched on help button")
-        
         toggleHelpPopover(sender)
     }
     
@@ -141,11 +139,11 @@ extension ScanQRCodeViewController {
                 videoDataOutput.connection(with: AVMediaType.video)!.isEnabled = true
                 
             } catch {
-                print("error creating deviceInput")
+                fatalError("error creating deviceInput")
             }
         }
         else {
-            print("error check captureDevice whether it's created normally")
+            fatalError("error check captureDevice whether it's created normally")
         }
     }
     
@@ -208,32 +206,45 @@ extension ScanQRCodeViewController {
         // find features
         let features = detector.features(in: ciImage, options: options)
         
+        #if DEBUG
         print("detect qrcode got features: \(features.count)")
+        #endif
         
         if features.count > 0 {
             let qrcodeFeature = features.first as! CIQRCodeFeature
+            #if DEBUG
             print("bounds for 1st feature: \(qrcodeFeature.bounds)")
+            #endif
+            
+            #if DEBUG1
             // find the message of qrcode
             print("message in qrcode: " + (qrcodeFeature.messageString ?? "empty"))
+            #endif
             
             // if we found message baked with qrcode then we continue our operation
             if let messageString = qrcodeFeature.messageString {
                 // if deteced message string is not the same as previously detected, thus we go ahead
+                // note entire messageString represents all URLs that we might open new browser tabs
                 if previouslyMessageStringDetected == nil ||
                     (previouslyMessageStringDetected != nil && messageString != previouslyMessageStringDetected) ||
                     (previouslyMessageStringDetected != nil && messageString == previouslyMessageStringDetected && isOkToOpenNativeBrowserTabAgainIfMessageStringIsTheSame) {
-                    // open URL via native browser
-                    if _validateURL(messageString) {
+                    
+                    // open URLs via native browser
+                    let urls = findAllURLs(messageString)
+                    if urls.count > 0 {
                         // update result textfield
                         DispatchQueue.main.async {
                             self.resultTextField.stringValue = messageString
                         }
                         
-                        // set flag that we've used the chance to open browser tab this time
-                        isOkToOpenNativeBrowserTabAgainIfMessageStringIsTheSame = false
-                        
-                        // open a new browser tab
-                        NSWorkspace.shared.open(URL(string: messageString)!)
+                        // loop through all urls then open a new browser tap
+                        for url in urls {
+                            // set flag that we've used the chance to open browser tabs this time
+                            isOkToOpenNativeBrowserTabAgainIfMessageStringIsTheSame = false
+                            
+                            // open a new browser tab
+                            NSWorkspace.shared.open(URL(string: url)!)
+                        }
                         
                         // for dispatched queue execution code
                         let tempURL = messageString
@@ -244,7 +255,9 @@ extension ScanQRCodeViewController {
                             // this is to prevent mess state as user can immediately scan a new qrcode (thus new URL)
                             if self.previouslyMessageStringDetected != nil && tempURL == self.previouslyMessageStringDetected {
                                 self.isOkToOpenNativeBrowserTabAgainIfMessageStringIsTheSame = true
+                                #if DEBUG
                                 print("set ok to open a new tab again")
+                                #endif
                             }
                         }
                     }
@@ -262,11 +275,21 @@ extension ScanQRCodeViewController {
         }
     }
     
-    // solution from https://stackoverflow.com/a/37065820/571227
-    private func _validateURL(_ urlString: String) -> Bool {
-        let urlRegEx = "((?:http|https)://)?(?:www\\.)?[\\w\\d\\-_]+\\.\\w{2,3}(\\.\\w{2})?(/(?<=/)(?:[\\w\\d\\-./_]+)?)?"
-        let urlTest = NSPredicate(format:"SELF MATCHES %@", urlRegEx)
-        return urlTest.evaluate(with: urlString)
+    // Solution from https://www.hackingwithswift.com/example-code/strings/how-to-detect-a-url-in-a-string-using-nsdatadetector
+    // Adapted and modified to return array of matched url
+    // Find all urls inside input string, then return array of such matched urls
+    private func findAllURLs(_ urlString: String) -> [String] {
+        let detector = try! NSDataDetector(types: NSTextCheckingResult.CheckingType.link.rawValue)
+        let matches = detector.matches(in: urlString, options: [], range: NSRange(location: 0, length: urlString.utf16.count))
+        
+        var urls:[String] = []
+        
+        for match in matches {
+            guard let range = Range(match.range, in: urlString) else { continue }
+            urls.append(String(urlString[range]))
+        }
+        
+        return urls
     }
 }
 
