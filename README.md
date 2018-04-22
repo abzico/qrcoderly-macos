@@ -12,7 +12,7 @@ QRCode image to feed to this app can be in general. But we aim to use it with [q
 
 Code-based is on-going developed, so it might have something new than what shows in the gif below. But you will get the concept.
 
-![qrcoderly in gif](https://i.imgur.com/ZWhWf3qm.gif)
+![qrcoderly in gif](https://i.imgur.com/ZWhWf3q.gif)
 
 # License
 
