@@ -22,6 +22,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             button.action = #selector(AppDelegate.togglePopover(_:))
         }
         popover.contentViewController = ScanQRCodeViewController.freshController()
+        popover.behavior = .transient
     }
 
     func applicationWillTerminate(_ aNotification: Notification) {
@@ -51,6 +52,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             }
         }
         else {
+            // check every time user clicks on icon to open an app for dark mode to update its UI
+            (popover.contentViewController as? ScanQRCodeViewController)?.updateUI(darkMode: Util.getIsDarkMode())
+            
             showPopover(sender: sender)
         }
     }

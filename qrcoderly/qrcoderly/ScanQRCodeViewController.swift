@@ -98,6 +98,10 @@ class ScanQRCodeViewController: NSViewController, AVCaptureVideoDataOutputSample
     func closeHelpPopover(sender: Any?) {
         helpPopover.performClose(sender)
     }
+    
+    func updateUI(darkMode: Bool) {
+        (helpPopover.contentViewController as? HelpViewController)?.updateUI(darkMode: darkMode)
+    }
 }
 
 // MARK: AVFoundatioan implementation

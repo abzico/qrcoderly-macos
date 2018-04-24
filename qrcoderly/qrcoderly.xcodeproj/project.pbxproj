@@ -21,6 +21,7 @@
 		1EE47B64208E564A009CE471 /* Assets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EE47B63208E564A009CE471 /* Assets.swift */; };
 		1EE47B66208E56C1009CE471 /* AudioPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EE47B65208E56C1009CE471 /* AudioPlayer.swift */; };
 		1EE47B73208EC1D8009CE471 /* beep.wav in Resources */ = {isa = PBXBuildFile; fileRef = 1EE47B72208EC1D8009CE471 /* beep.wav */; };
+		1EEFB270208FC47D0093971C /* Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EEFB26F208FC47D0093971C /* Util.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -41,6 +42,7 @@
 		1EE47B63208E564A009CE471 /* Assets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Assets.swift; sourceTree = "<group>"; };
 		1EE47B65208E56C1009CE471 /* AudioPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPlayer.swift; sourceTree = "<group>"; };
 		1EE47B72208EC1D8009CE471 /* beep.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = beep.wav; sourceTree = "<group>"; };
+		1EEFB26F208FC47D0093971C /* Util.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Util.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -89,6 +91,7 @@
 				1E881348206DBFC8006DFB84 /* Settings.swift */,
 				1EE47B63208E564A009CE471 /* Assets.swift */,
 				1EE47B65208E56C1009CE471 /* AudioPlayer.swift */,
+				1EEFB26F208FC47D0093971C /* Util.swift */,
 			);
 			path = qrcoderly;
 			sourceTree = "<group>";
@@ -192,6 +195,7 @@
 				1E88133A206C112B006DFB84 /* CustomView.swift in Sources */,
 				1E881328206B1B60006DFB84 /* AppDelegate.swift in Sources */,
 				1E881338206B4306006DFB84 /* ScanQRCodeViewController.swift in Sources */,
+				1EEFB270208FC47D0093971C /* Util.swift in Sources */,
 				1E881349206DBFC8006DFB84 /* Settings.swift in Sources */,
 				1E88133E206C2577006DFB84 /* SharedConstants.swift in Sources */,
 				1EE47B64208E564A009CE471 /* Assets.swift in Sources */,
