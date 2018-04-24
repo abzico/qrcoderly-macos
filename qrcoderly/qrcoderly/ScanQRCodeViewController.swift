@@ -216,7 +216,7 @@ extension ScanQRCodeViewController {
             print("bounds for 1st feature: \(qrcodeFeature.bounds)")
             #endif
             
-            #if DEBUG1
+            #if DEBUG
             // find the message of qrcode
             print("message in qrcode: " + (qrcodeFeature.messageString ?? "empty"))
             #endif
@@ -228,6 +228,9 @@ extension ScanQRCodeViewController {
                 if previouslyMessageStringDetected == nil ||
                     (previouslyMessageStringDetected != nil && messageString != previouslyMessageStringDetected) ||
                     (previouslyMessageStringDetected != nil && messageString == previouslyMessageStringDetected && isOkToOpenNativeBrowserTabAgainIfMessageStringIsTheSame) {
+                    
+                    // play beep sfx
+                    AudioPlayer.shared.play(Assets.qrscanBeepSfx)
                     
                     // open URLs via native browser
                     let urls = findAllURLs(messageString)

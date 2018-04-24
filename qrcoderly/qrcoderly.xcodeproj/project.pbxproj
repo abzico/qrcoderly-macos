@@ -18,6 +18,9 @@
 		1E881340206C2BD7006DFB84 /* SharedVolatile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E88133F206C2BD7006DFB84 /* SharedVolatile.swift */; };
 		1E881345206CDCC3006DFB84 /* NSBezierPath+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E881344206CDCC3006DFB84 /* NSBezierPath+Extensions.swift */; };
 		1E881349206DBFC8006DFB84 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E881348206DBFC8006DFB84 /* Settings.swift */; };
+		1EE47B64208E564A009CE471 /* Assets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EE47B63208E564A009CE471 /* Assets.swift */; };
+		1EE47B66208E56C1009CE471 /* AudioPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EE47B65208E56C1009CE471 /* AudioPlayer.swift */; };
+		1EE47B73208EC1D8009CE471 /* beep.wav in Resources */ = {isa = PBXBuildFile; fileRef = 1EE47B72208EC1D8009CE471 /* beep.wav */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -35,6 +38,9 @@
 		1E88133F206C2BD7006DFB84 /* SharedVolatile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedVolatile.swift; sourceTree = "<group>"; };
 		1E881344206CDCC3006DFB84 /* NSBezierPath+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSBezierPath+Extensions.swift"; sourceTree = "<group>"; };
 		1E881348206DBFC8006DFB84 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
+		1EE47B63208E564A009CE471 /* Assets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Assets.swift; sourceTree = "<group>"; };
+		1EE47B65208E56C1009CE471 /* AudioPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPlayer.swift; sourceTree = "<group>"; };
+		1EE47B72208EC1D8009CE471 /* beep.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = beep.wav; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -67,6 +73,7 @@
 		1E881326206B1B60006DFB84 /* qrcoderly */ = {
 			isa = PBXGroup;
 			children = (
+				1EE47B67208E61B4009CE471 /* Assets */,
 				1E881343206CDC99006DFB84 /* Extensions */,
 				1E881327206B1B60006DFB84 /* AppDelegate.swift */,
 				1E881329206B1B60006DFB84 /* ViewController.swift */,
@@ -80,6 +87,8 @@
 				1E88133D206C2577006DFB84 /* SharedConstants.swift */,
 				1E88133F206C2BD7006DFB84 /* SharedVolatile.swift */,
 				1E881348206DBFC8006DFB84 /* Settings.swift */,
+				1EE47B63208E564A009CE471 /* Assets.swift */,
+				1EE47B65208E56C1009CE471 /* AudioPlayer.swift */,
 			);
 			path = qrcoderly;
 			sourceTree = "<group>";
@@ -90,6 +99,14 @@
 				1E881344206CDCC3006DFB84 /* NSBezierPath+Extensions.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		1EE47B67208E61B4009CE471 /* Assets */ = {
+			isa = PBXGroup;
+			children = (
+				1EE47B72208EC1D8009CE471 /* beep.wav */,
+			);
+			path = Assets;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -155,6 +172,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1EE47B73208EC1D8009CE471 /* beep.wav in Resources */,
 				1E88132C206B1B61006DFB84 /* Assets.xcassets in Resources */,
 				1E88132F206B1B61006DFB84 /* Main.storyboard in Resources */,
 			);
@@ -169,12 +187,14 @@
 			files = (
 				1E881340206C2BD7006DFB84 /* SharedVolatile.swift in Sources */,
 				1E88132A206B1B60006DFB84 /* ViewController.swift in Sources */,
+				1EE47B66208E56C1009CE471 /* AudioPlayer.swift in Sources */,
 				1E881345206CDCC3006DFB84 /* NSBezierPath+Extensions.swift in Sources */,
 				1E88133A206C112B006DFB84 /* CustomView.swift in Sources */,
 				1E881328206B1B60006DFB84 /* AppDelegate.swift in Sources */,
 				1E881338206B4306006DFB84 /* ScanQRCodeViewController.swift in Sources */,
 				1E881349206DBFC8006DFB84 /* Settings.swift in Sources */,
 				1E88133E206C2577006DFB84 /* SharedConstants.swift in Sources */,
+				1EE47B64208E564A009CE471 /* Assets.swift in Sources */,
 				1E88133C206C2100006DFB84 /* HelpViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
