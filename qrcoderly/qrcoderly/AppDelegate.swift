@@ -22,8 +22,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             button.action = #selector(AppDelegate.togglePopover(_:))
         }
         popover.contentViewController = ScanQRCodeViewController.freshController()
-        
-        //constructMenu()
     }
 
     func applicationWillTerminate(_ aNotification: Notification) {
@@ -65,20 +63,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     func closePopover(sender: Any?) {
         popover.performClose(sender)
-    }
-    
-    func constructMenu() {
-        let menu = NSMenu()
-        
-        menu.addItem(NSMenuItem(title: "Scan QRCode", action: #selector(scanQRCode(_:)), keyEquivalent: "s"))
-        menu.addItem(NSMenuItem.separator())
-        menu.addItem(NSMenuItem(title: "Quit", action: #selector(NSApplication.terminate(_:)), keyEquivalent: "q"))
-        
-        statusItem.menu = menu
-    }
-    
-    @objc func scanQRCode(_ sender: Any?) {
-        
     }
 }
 
