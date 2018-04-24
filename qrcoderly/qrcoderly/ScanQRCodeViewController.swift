@@ -26,7 +26,7 @@ class ScanQRCodeViewController: NSViewController, AVCaptureVideoDataOutputSample
     var qrcodeDetector: CIDetector?
     
     var previouslyMessageStringDetected: String?
-    var isOkToOpenNativeBrowserTabAgainIfMessageStringIsTheSame: Bool = true
+    var isOkToScanAgain: Bool = true
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -183,6 +183,9 @@ extension ScanQRCodeViewController {
     }
     
     func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
+        // if not yet ready to scan again, return for now
+        if !isOkToScanAgain { return }
+        
         // get the image
         let pixelBuffer = CMSampleBufferGetImageBuffer(sampleBuffer)
         let attachments:[String:Any] = CMCopyDictionaryOfAttachments(kCFAllocatorDefault, sampleBuffer, kCMAttachmentMode_ShouldPropagate) as! [String : Any]
@@ -227,7 +230,7 @@ extension ScanQRCodeViewController {
                 // note entire messageString represents all URLs that we might open new browser tabs
                 if previouslyMessageStringDetected == nil ||
                     (previouslyMessageStringDetected != nil && messageString != previouslyMessageStringDetected) ||
-                    (previouslyMessageStringDetected != nil && messageString == previouslyMessageStringDetected && isOkToOpenNativeBrowserTabAgainIfMessageStringIsTheSame) {
+                    (previouslyMessageStringDetected != nil && messageString == previouslyMessageStringDetected && isOkToScanAgain) {
                     
                     // play beep sfx
                     AudioPlayer.shared.play(Assets.qrscanBeepSfx)
@@ -243,7 +246,7 @@ extension ScanQRCodeViewController {
                         // loop through all urls then open a new browser tap
                         for url in urls {
                             // set flag that we've used the chance to open browser tabs this time
-                            isOkToOpenNativeBrowserTabAgainIfMessageStringIsTheSame = false
+                            isOkToScanAgain = false
                             
                             // open a new browser tab
                             NSWorkspace.shared.open(URL(string: url)!)
@@ -253,13 +256,13 @@ extension ScanQRCodeViewController {
                         let tempURL = messageString
                         
                         // schedule to make it ok to open browser tab again after cooldown time
-                        DispatchQueue.global(qos: .default).asyncAfter(deadline: .now() + Settings.COOLDOWN_UNTIL_OPEN_NEW_BROWSER_TAB) {
+                        DispatchQueue.global(qos: .default).asyncAfter(deadline: .now() + Settings.COOLDOWN_UNTIL_NEXT_SCAN) {
                             // check only if such message is the same as previuosly, so we gonna allow openning a new tab again
                             // this is to prevent mess state as user can immediately scan a new qrcode (thus new URL)
                             if self.previouslyMessageStringDetected != nil && tempURL == self.previouslyMessageStringDetected {
-                                self.isOkToOpenNativeBrowserTabAgainIfMessageStringIsTheSame = true
+                                self.isOkToScanAgain = true
                                 #if DEBUG
-                                print("set ok to open a new tab again")
+                                print("set ok to be able to scan again")
                                 #endif
                             }
                         }
@@ -268,6 +271,24 @@ extension ScanQRCodeViewController {
                     else {
                         DispatchQueue.main.async {
                             self.resultTextField.stringValue = messageString
+                        }
+                        
+                        // set that we got the result now to prevent multiple scan unnecessary
+                        isOkToScanAgain = false
+                        
+                        // for dispatched queue execution code
+                        let tempURL = messageString
+                        
+                        // schedule to make it ok to open browser tab again after cooldown time
+                        DispatchQueue.global(qos: .default).asyncAfter(deadline: .now() + Settings.COOLDOWN_UNTIL_NEXT_SCAN) {
+                            // check only if such message is the same as previuosly, so we gonna allow openning a new tab again
+                            // this is to prevent mess state as user can immediately scan a new qrcode (thus new URL)
+                            if self.previouslyMessageStringDetected != nil && tempURL == self.previouslyMessageStringDetected {
+                                self.isOkToScanAgain = true
+                                #if DEBUG
+                                print("set ok to be able to scan again")
+                                #endif
+                            }
                         }
                     }
                 }

@@ -9,5 +9,5 @@
 import Foundation
 
 final class Settings {
-    public static let COOLDOWN_UNTIL_OPEN_NEW_BROWSER_TAB: TimeInterval = 3  // in seconds
+    public static let COOLDOWN_UNTIL_NEXT_SCAN: TimeInterval = 4  // in seconds
 }
