@@ -25,6 +25,9 @@ class HelpViewController: NSViewController {
     }
     
     func updateUI(darkMode: Bool) {
+        // check if textfield is not nil, as user can click on another desktop monitor screen
+        guard let textField = self.textField else { return }
+        
         // set url for part of string inside text field
         let attrString = NSMutableAttributedString(string: "Made with ❤️ by @haxpor", attributes: [NSAttributedStringKey.font : NSFont.boldSystemFont(ofSize: 13)])
         let rangeForURL = NSMakeRange(16, 7)  // to cover @haxpor
@@ -46,7 +49,7 @@ class HelpViewController: NSViewController {
         attrString.endEditing()
         
         // set attributed string to text field
-        self.textField.attributedStringValue = attrString
+        textField.attributedStringValue = attrString
     }
 }
 
